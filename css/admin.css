@@ -311,6 +311,37 @@ body {
     padding-left: 42px !important;
 }
 
+.input-wrapper input[type="password"],
+.input-wrapper input#adminPass {
+    padding-right: 44px !important;
+}
+
+.pass-toggle-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    line-height: 1;
+    border-radius: 6px;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.pass-toggle-btn:hover {
+    transform: scale(1.15);
+    background: rgba(124, 58, 237, 0.08);
+}
+
+.pass-toggle-btn:active {
+    transform: scale(0.95);
+}
+
 /* ==========================================================================
    INPUTS & TEXTAREAS (CLEAN WHITE THEME)
    ========================================================================== */

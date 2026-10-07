@@ -73,6 +73,9 @@ async function load(quiet = false) {
     render();
     if (!quiet) showToast('Logged in successfully!');
   } catch (e) {
+    sessionStorage.removeItem('gravity_admin_user');
+    sessionStorage.removeItem('gravity_admin_pass');
+    ADMIN_PASS = '';
     const loginEl = $('#login');
     const appEl = $('#app');
     if (loginEl) {
@@ -115,6 +118,24 @@ $('#loginBtn').onclick = () => {
     });
   }
 });
+
+// Password visibility toggle handler
+const togglePassBtn = $('#togglePassBtn');
+if (togglePassBtn) {
+  togglePassBtn.onclick = () => {
+    const passInput = $('#adminPass');
+    if (!passInput) return;
+    if (passInput.type === 'password') {
+      passInput.type = 'text';
+      togglePassBtn.textContent = '🙈';
+      togglePassBtn.title = 'Hide Password';
+    } else {
+      passInput.type = 'password';
+      togglePassBtn.textContent = '👁️';
+      togglePassBtn.title = 'Show Password';
+    }
+  };
+}
 
 // Logout handler
 const logoutBtn = $('#logoutBtn');
