@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gravity Admin</title>
+  <link rel="icon" href="../assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <!-- =====================================================================
+       AMBIENT GLOW ACCENTS (SOFT PASTEL)
+       ===================================================================== -->
+  <div class="liquid-bg" aria-hidden="true">
+    <div class="liquid-orb orb-1"></div>
+    <div class="liquid-orb orb-2"></div>
+    <div class="liquid-orb orb-3"></div>
+  </div>
+
+  <!-- =====================================================================
+       LOGIN SCREEN
+       ===================================================================== -->
+  <div id="login" class="login-wrapper">
+    <div class="glass-card login-card">
+      <div class="login-header">
+        <div class="login-logo-wrap">
+          <img id="loginLogo" src="../assets/logo.png" alt="Bot Logo">
+        </div>
+        <h1>Gravity Admin</h1>
+        <p>Sign in to your admin dashboard</p>
+      </div>
+
+      <div class="login-form">
+        <div class="input-group">
+          <label for="adminUser">Admin ID / Username</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input id="adminUser" type="text" placeholder="e.g. admin" value="admin" autocomplete="username">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="adminPass">Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔑</span>
+            <input id="adminPass" type="password" placeholder="Enter admin password" autocomplete="current-password">
+          </div>
+        </div>
+
+        <button id="loginBtn" class="btn-liquid-primary">
+          <span>Sign In to Dashboard</span>
+          <span class="btn-arrow">→</span>
+        </button>
+
+        <small id="loginMsg"></small>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       DASHBOARD APP
+       ===================================================================== -->
+  <div id="app" hidden>
+
+    <!-- TOP GLASS BAR -->
+    <header class="glass-nav">
+      <div class="nav-left">
+        <div class="nav-brand">
+          <div class="brand-glow">
+            <img id="adminNavLogo" src="../assets/logo.png" alt="Bot Logo">
+          </div>
+          <div class="brand-text">
+            <b>GRAVITY BOT</b>
+            <span class="brand-sub">ADMIN DASHBOARD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIQUID TABS SWITCHER -->
+      <nav class="liquid-tabs">
+        <button class="tab-btn active" data-tab="tab-settings">
+          <span class="tab-icon">⚙️</span>
+          <span class="tab-label">Settings</span>
+        </button>
+        <button class="tab-btn" data-tab="tab-categories">
+          <span class="tab-icon">📁</span>
+          <span class="tab-label">Categories</span>
+          <span id="badgeCatCount" class="tab-counter">0</span>
+        </button>
+        <button class="tab-btn" data-tab="tab-commands">
+          <span class="tab-icon">⚡</span>
+          <span class="tab-label">Commands</span>
+          <span id="badgeCmdCount" class="tab-counter">0</span>
+        </button>
+        <button class="tab-btn" data-tab="tab-legal">
+          <span class="tab-icon">📜</span>
+          <span class="tab-label">Legal &amp; Policy</span>
+        </button>
+      </nav>
+
+      <div class="nav-right">
+        <a href="/" target="_blank" class="nav-link-btn" title="Open public bot website">
+          <span>Live Site</span>
+          <span class="arrow-up-right">↗</span>
+        </a>
+        <button id="logoutBtn" class="btn-glass-danger" title="Sign out of admin session">
+          <span>Logout</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="dash-container">
+
+      <!-- QUICK STATS BAR -->
+      <div class="stats-grid">
+        <div class="glass-card stat-card">
+          <div class="stat-icon-wrap violet">
+            <img id="statBotLogo" src="../assets/logo.png" alt="Bot Logo">
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Bot Name</span>
+            <h3 id="statBotName">Gravity Bot</h3>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card">
+          <div class="stat-icon-wrap cyan">📁</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Categories</span>
+            <h3 id="statCatCount">0</h3>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card">
+          <div class="stat-icon-wrap fuchsia">⚡</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Commands</span>
+            <h3 id="statCmdCount">0</h3>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card">
+          <div class="stat-icon-wrap emerald">🛡️</div>
+          <div class="stat-info">
+            <span class="stat-label">Database Storage</span>
+            <h3>Cloudflare D1</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================================
+           TAB 1: WEBSITE SETTINGS
+           =================================================================== -->
+      <section id="tab-settings" class="tab-pane active">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">CONFIGURATION</span>
+            <h2>General Bot Settings</h2>
+            <p>Customize branding, discord invite URLs, and hero text.</p>
+          </div>
+        </div>
+
+        <div class="glass-card panel-card">
+          <form id="settings" class="liquid-form"></form>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 2: CATEGORIES MANAGEMENT
+           =================================================================== -->
+      <section id="tab-categories" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">STRUCTURE</span>
+            <h2>Command Categories</h2>
+            <p>Organize bot commands into clean functional categories.</p>
+          </div>
+        </div>
+
+        <!-- Add Category Glass Card -->
+        <div class="glass-card add-card">
+          <div class="add-card-header">
+            <div class="header-badge">+</div>
+            <div>
+              <h3>Add New Category</h3>
+              <p>Create a category grouping (e.g. Moderation, Music, Utility)</p>
+            </div>
+          </div>
+
+          <form id="catAdd" class="liquid-add-form cat-form-grid">
+            <div class="form-col">
+              <label>Category Name *</label>
+              <input name="name" placeholder="e.g. Moderation" required>
+            </div>
+            <div class="form-col-sm">
+              <label>Icon (Emoji)</label>
+              <input name="icon" placeholder="🛡️" value="⚙️">
+            </div>
+            <div class="form-col">
+              <label>Description</label>
+              <input name="description" placeholder="Brief summary of category">
+            </div>
+            <div class="form-col-xs">
+              <label>Order</label>
+              <input name="sort_order" type="number" value="0">
+            </div>
+            <div class="form-col-btn">
+              <button type="submit" class="btn-liquid-add">
+                <span>+ Add Category</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Existing Categories List -->
+        <div class="list-section">
+          <div class="list-header">
+            <h4>Active Categories</h4>
+            <span class="badge-count" id="catListCount">0 Categories</span>
+          </div>
+          <div id="cats" class="items-grid"></div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 3: COMMANDS MANAGEMENT
+           =================================================================== -->
+      <section id="tab-commands" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">FEATURES</span>
+            <h2>Bot Commands</h2>
+            <p>Add, edit, or configure commands and their usage syntax.</p>
+          </div>
+        </div>
+
+        <!-- Add Command Glass Card -->
+        <div class="glass-card add-card">
+          <div class="add-card-header">
+            <div class="header-badge">+</div>
+            <div>
+              <h3>Add New Command</h3>
+              <p>Fill in the details below to publish a command to the public docs.</p>
+            </div>
+          </div>
+
+          <form id="cmdAdd" class="liquid-add-form cmd-form-grid">
+            <div class="form-col">
+              <label>Category *</label>
+              <select name="category_id" id="cmdCat" required></select>
+            </div>
+            <div class="form-col">
+              <label>Command Name *</label>
+              <input name="command_name" placeholder="e.g. /ban" required>
+            </div>
+            <div class="form-col">
+              <label>Description *</label>
+              <input name="description" placeholder="e.g. Permanently bans a user" required>
+            </div>
+            <div class="form-col">
+              <label>Usage / Syntax</label>
+              <input name="usage_text" placeholder="e.g. /ban @user [reason]">
+            </div>
+            <div class="form-col-xs">
+              <label>Order</label>
+              <input name="sort_order" type="number" value="0">
+            </div>
+            <div class="form-col-btn">
+              <button type="submit" class="btn-liquid-add">
+                <span>+ Add Command</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="filter-glass-bar">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input id="cmdSearchInput" type="text" placeholder="Search commands by name or description...">
+          </div>
+          <div class="filter-select-wrap">
+            <select id="cmdCategoryFilter">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Existing Commands List -->
+        <div class="list-section">
+          <div class="list-header">
+            <h4>Configured Commands</h4>
+            <span class="badge-count" id="cmdListCount">0 Commands</span>
+          </div>
+          <div id="cmds" class="commands-grid"></div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 4: LEGAL & POLICY (TERMS & PRIVACY)
+           =================================================================== -->
+      <section id="tab-legal" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">LEGAL &amp; COMPLIANCE</span>
+            <h2>Terms of Service &amp; Privacy Policy</h2>
+            <p>Write or edit custom policies. Supports HTML headings, paragraphs, and lists.</p>
+          </div>
+        </div>
+
+        <div class="glass-card panel-card">
+          <form id="legalForm" class="liquid-form">
+            <div class="legal-grid">
+              <div class="legal-box">
+                <div class="box-title">
+                  <span class="box-badge">📄</span>
+                  <div>
+                    <h3>Terms of Service Content</h3>
+                    <small>Custom content for /terms.html. Leave empty to use default template.</small>
+                  </div>
+                </div>
+                <textarea id="legalTerms" name="terms_content" rows="14"
+                  placeholder="<h2>1. Acceptance of Terms</h2>&#10;<p>By inviting our bot, you agree...</p>"></textarea>
+              </div>
+
+              <div class="legal-box">
+                <div class="box-title">
+                  <span class="box-badge">🔒</span>
+                  <div>
+                    <h3>Privacy Policy Content</h3>
+                    <small>Custom content for /privacy.html. Leave empty to use default template.</small>
+                  </div>
+                </div>
+                <textarea id="legalPrivacy" name="privacy_content" rows="14"
+                  placeholder="<h2>1. Data We Collect</h2>&#10;<p>We store user IDs and server settings...</p>"></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions-bar">
+              <button type="submit" class="btn-liquid-primary">
+                <span>Save Legal Policies</span>
+                <span class="btn-arrow">✓</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="liquid-toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy — Gravity Bot</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a class="brand" href="/">
+      <img id="navLogo" src="assets/logo.png" alt="Gravity Bot">
+      <b id="navName">GRAVITY BOT</b>
+    </a>
+    <a class="invite" href="/">Home</a>
+  </nav>
+
+  <!-- PRIVACY CONTENT -->
+  <main class="commands-page">
+    <div class="pagehero">
+      <div class="eyebrow">LEGAL</div>
+      <h1>Privacy <span>Policy.</span></h1>
+      <p>How Gravity Bot collects, uses, and safeguards your server data.</p>
+    </div>
+
+    <div class="command-category" style="padding: 30px;">
+      <!-- Dynamic content loaded from DB -->
+      <div id="privacyContent">
+        <!-- Default fallback content (shown if admin has not set custom content) -->
+        <h2>1. Information We Collect</h2>
+        <p>Depending on enabled features, Gravity Bot may process Discord identifiers such as user IDs, server IDs, channel IDs, role IDs, and bot configuration data.</p>
+
+        <h2 style="margin-top: 25px;">2. Purpose of Data</h2>
+        <p>Data is strictly used to execute commands, save server configurations, provide bot features, troubleshoot technical issues, and prevent abuse.</p>
+
+        <h2 style="margin-top: 25px;">3. Data Sharing</h2>
+        <p>We do not sell or monetize personal information. Data is only processed through necessary infrastructure (such as Cloudflare D1) to operate the service.</p>
+
+        <h2 style="margin-top: 25px;">4. Retention &amp; Deletion</h2>
+        <p>We aim to retain only information reasonably required for bot operations. Server data can be removed when the bot is removed from the server.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/site.js"></script>
+  <script>
+    // Load dynamic Privacy content from admin panel settings
+    fetch('/api/public')
+      .then(r => r.json())
+      .then(data => {
+        const s = data.settings || {};
+
+        // Update nav logo & name
+        if (s.logo_url) {
+          const navLogo = document.getElementById('navLogo');
+          if (navLogo) {
+            navLogo.src = s.logo_url;
+            navLogo.onerror = () => { navLogo.src = 'assets/logo.png'; };
+          }
+        }
+        if (s.bot_name) {
+          const navName = document.getElementById('navName');
+          if (navName) navName.textContent = s.bot_name.toUpperCase();
+        }
+
+        // Inject Privacy content if admin has set it
+        const content = (s.privacy_content || '').trim();
+        if (content) {
+          document.getElementById('privacyContent').innerHTML = content;
+        }
+      })
+      .catch(() => {
+        // Silently fail — default content stays visible
+      });
+  </script>
+</body>
+</html>

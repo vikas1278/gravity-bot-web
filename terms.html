@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms — Gravity Bot</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a class="brand" href="/">
+      <img id="navLogo" src="assets/logo.png" alt="Gravity Bot">
+      <b id="navName">GRAVITY BOT</b>
+    </a>
+    <a class="invite" href="/">Home</a>
+  </nav>
+
+  <!-- TERMS CONTENT -->
+  <main class="commands-page">
+    <div class="pagehero">
+      <div class="eyebrow">LEGAL</div>
+      <h1>Terms of <span>Service.</span></h1>
+      <p>Please read these terms carefully before using Gravity Bot.</p>
+    </div>
+
+    <div class="command-category" style="padding: 30px;">
+      <!-- Dynamic content loaded from DB -->
+      <div id="termsContent">
+        <!-- Default fallback content (shown if admin has not set custom content) -->
+        <h2>1. Acceptance of Terms</h2>
+        <p>By inviting or using Gravity Bot in your Discord server, you agree to these Terms and must comply with Discord's Terms of Service and Community Guidelines.</p>
+
+        <h2 style="margin-top: 25px;">2. Permitted Use</h2>
+        <p>Do not use Gravity Bot for any illegal activities, abuse, fraud, harassment, unauthorized access, or sending spam.</p>
+
+        <h2 style="margin-top: 25px;">3. Availability &amp; Changes</h2>
+        <p>Features may change or be temporarily unavailable during maintenance. The Bot is provided on an "as-is" and "as-available" basis.</p>
+
+        <h2 style="margin-top: 25px;">4. Updates to Terms</h2>
+        <p>These terms may be updated from time to time. Continued use of the bot signifies acceptance of updated terms.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/site.js"></script>
+  <script>
+    // Load dynamic Terms content from admin panel settings
+    fetch('/api/public')
+      .then(r => r.json())
+      .then(data => {
+        const s = data.settings || {};
+
+        // Update nav logo & name
+        if (s.logo_url) {
+          const navLogo = document.getElementById('navLogo');
+          if (navLogo) {
+            navLogo.src = s.logo_url;
+            navLogo.onerror = () => { navLogo.src = 'assets/logo.png'; };
+          }
+        }
+        if (s.bot_name) {
+          const navName = document.getElementById('navName');
+          if (navName) navName.textContent = s.bot_name.toUpperCase();
+        }
+
+        // Inject Terms content if admin has set it
+        const content = (s.terms_content || '').trim();
+        if (content) {
+          document.getElementById('termsContent').innerHTML = content;
+        }
+      })
+      .catch(() => {
+        // Silently fail — default content stays visible
+      });
+  </script>
+</body>
+</html>

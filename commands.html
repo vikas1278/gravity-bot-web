@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Commands — Gravity Bot</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a class="brand" href="/">
+      <img id="navLogo" src="assets/logo.png" alt="Gravity Bot">
+      <b id="navName">GRAVITY<span>BOT</span></b>
+    </a>
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/commands.html">Commands</a>
+      <a href="/support.html">Support</a>
+    </div>
+    <a class="invite" id="inviteTop" href="#">Invite Gravity</a>
+  </nav>
+
+  <!-- MAIN COMMANDS LIST -->
+  <main class="commands-page">
+    <div class="pagehero">
+      <div class="eyebrow">COMMAND CENTER</div>
+      <h1>Every command,<br><span>organized.</span></h1>
+      <p>Categories and commands are loaded from Cloudflare D1.</p>
+    </div>
+
+    <div class="filters">
+      <input id="search" placeholder="Search commands...">
+      <select id="category">
+        <option value="">All categories</option>
+      </select>
+    </div>
+
+    <div id="commandList"></div>
+  </main>
+
+  <script src="js/commands.js"></script>
+</body>
+</html>
