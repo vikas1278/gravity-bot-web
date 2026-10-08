@@ -9,6 +9,16 @@ async function init(){
   x.onerror=()=>{x.src='assets/logo.png'};
  });
  document.getElementById('inviteTop').href=s.invite_url||'#';
+ // Commands page hero — dynamic from admin
+ const titleEl=document.getElementById('cmdPageTitle');
+ if(titleEl && s.commands_title){
+  const parts=s.commands_title.split(',');
+  titleEl.innerHTML = parts.length>1
+   ? esc(parts[0])+',<br><span>'+esc(parts.slice(1).join(',').trim())+'</span>'
+   : '<span>'+esc(s.commands_title)+'</span>';
+ }
+ const subEl=document.getElementById('cmdPageSubtitle');
+ if(subEl && s.commands_subtitle) subEl.textContent=s.commands_subtitle;
  const sel=document.getElementById('category');data.forEach(c=>sel.insertAdjacentHTML('beforeend',`<option value="${esc(c.id)}">${esc(c.icon)} ${esc(c.name)}</option>`));
  render();
 }

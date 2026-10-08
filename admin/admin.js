@@ -246,6 +246,25 @@ function render() {
         <textarea name="hero_description" rows="3" placeholder="Explain your bot's standout features...">${esc(s.hero_description)}</textarea>
       </div>
 
+      <div class="form-field">
+        <label>Discord Bot Client ID</label>
+        <input name="client_id" value="${esc(s.client_id)}" placeholder="e.g. 123456789012345678" style="font-family: 'JetBrains Mono', monospace;">
+        <small>Your bot's Discord Application / Client ID. Used to auto-fill invite URLs and public bot links.</small>
+      </div>
+
+      <div class="settings-grid-2">
+        <div class="form-field">
+          <label>Commands Page — Big Heading</label>
+          <input name="commands_title" value="${esc(s.commands_title || 'Every command, organized.')}" placeholder="Every command, organized.">
+          <small>The large heading shown at the top of the Commands page.</small>
+        </div>
+        <div class="form-field">
+          <label>Commands Page — Subtitle</label>
+          <input name="commands_subtitle" value="${esc(s.commands_subtitle)}" placeholder="Explore every slash command...">
+          <small>The smaller description text below the heading.</small>
+        </div>
+      </div>
+
       <!-- Hidden inputs to preserve legal fields during settings update -->
       <input type="hidden" name="terms_content" value="${esc(s.terms_content || '')}">
       <input type="hidden" name="privacy_content" value="${esc(s.privacy_content || '')}">
@@ -286,7 +305,10 @@ function render() {
       const payload = {
         ...s,
         terms_content: legalTerms.value,
-        privacy_content: legalPrivacy.value
+        privacy_content: legalPrivacy.value,
+        client_id: s.client_id || '',
+        commands_title: s.commands_title || 'Every command, organized.',
+        commands_subtitle: s.commands_subtitle || ''
       };
 
       const ok = await save('settings', payload, 'Terms & Privacy policies saved successfully!');

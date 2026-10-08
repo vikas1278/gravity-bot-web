@@ -40,16 +40,19 @@ export async function onRequest(context) {
   try {
     if (action === "settings") {
       await env.DB.prepare(
-        "UPDATE settings SET bot_name=?,logo_url=?,invite_url=?,support_url=?,hero_title=?,hero_description=?,terms_content=?,privacy_content=? WHERE id=1"
+        "UPDATE settings SET bot_name=?,logo_url=?,invite_url=?,support_url=?,hero_title=?,hero_description=?,terms_content=?,privacy_content=?,client_id=?,commands_title=?,commands_subtitle=? WHERE id=1"
       ).bind(
-        body.bot_name       || '',
-        body.logo_url       || '',
-        body.invite_url     || '',
-        body.support_url    || '',
-        body.hero_title     || '',
+        body.bot_name         || '',
+        body.logo_url         || '',
+        body.invite_url       || '',
+        body.support_url      || '',
+        body.hero_title       || '',
         body.hero_description || '',
-        body.terms_content  || '',
-        body.privacy_content || ''
+        body.terms_content    || '',
+        body.privacy_content  || '',
+        body.client_id        || '',
+        body.commands_title   || 'Every command, organized.',
+        body.commands_subtitle|| ''
       ).run();
 
     } else if (action === "category_add") {
