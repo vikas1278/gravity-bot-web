@@ -13,7 +13,7 @@
   <nav>
     <a class="brand" href="/">
       <img id="navLogo" src="assets/logo.png" alt="Gravity Bot">
-      <b>GRAVITY BOT</b>
+      <b id="navName">GRAVITY BOT</b>
     </a>
     <a class="invite" href="/">Home</a>
   </nav>
@@ -35,13 +35,6 @@
     </div>
   </main>
 
-  <script>
-    fetch('/api/public')
-      .then(r => r.json())
-      .then(d => {
-        const link = document.getElementById('support');
-        if (link) link.href = d.settings.support_url || '#';
-      });
-  </script>
+  <script src="js/site.js"></script>
 </body>
 </html>

@@ -558,6 +558,9 @@ function attachDeleteHandlers() {
 async function save(action, body, successMsg = 'Saved successfully!') {
   try {
     await api(action, body);
+    try {
+      localStorage.removeItem('gravity_public_data');
+    } catch (e) {}
     showToast(successMsg, false);
     return true;
   } catch (e) {

@@ -672,3 +672,51 @@ footer p {
   footer { grid-template-columns: 1fr; text-align: center; }
   .footlinks { justify-content: center; }
 }
+
+/* ==========================================================================
+   DYNAMIC CONTENT SKELETON LOADER (PREVENTS FLASH OF OLD CONTENT)
+   ========================================================================== */
+
+.content-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.skeleton-line {
+  background: linear-gradient(90deg, rgba(226, 232, 240, 0.7) 25%, rgba(248, 250, 252, 0.95) 50%, rgba(226, 232, 240, 0.7) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite ease-in-out;
+  border-radius: 8px;
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 35%;
+  border-radius: 8px;
+}
+
+.skeleton-p {
+  height: 15px;
+  width: 95%;
+  border-radius: 6px;
+}
+
+.skeleton-p.short {
+  width: 65%;
+}
+
+.legal-content-fade {
+  animation: legalFadeIn 0.2s ease-out;
+}
+
+@keyframes legalFadeIn {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
